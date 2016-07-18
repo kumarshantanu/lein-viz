@@ -18,4 +18,6 @@
 * Project metadata support
   * All command line arg info can be specified via project config (under `:viz` key)
 * Show graph GUI
+  * Color leaf nodes as green
+  * Color root nodes as tan
 * Show tree GUI
