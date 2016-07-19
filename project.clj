@@ -5,4 +5,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :eval-in-leiningen true
   :dependencies [[rhizome "0.2.7"]
-                 [org.clojure/tools.cli "0.3.5"]])
+                 [org.clojure/tools.cli "0.3.5"]]
+  :viz {:graph lein-viz.sample/make-graph
+        :tree  lein-viz.sample/make-tree})
