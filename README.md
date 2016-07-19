@@ -5,27 +5,22 @@ A Leiningen plugin to visualize graph and tree data.
 
 ## Usage
 
-Clojars: Not on Clojars yet
+Leiningen coordinates: `[lein-viz 0.1.0]`
 
 You need to have [Graphviz](http://www.graphviz.org/) installed to use this plugin.
 
-| OS | How to install |
-|----|----------------|
-| Linux | Install using your package manager |
-| OS X  | Install Graphviz using Homebrew, or [download installer](http://www.graphviz.org/Download_macos.php) |
+| OS      | How to install             |
+|---------|----------------------------|
+| Linux   | Using your package manager |
+| OS X    | Using [Homebrew](http://brew.sh/) or [download installer](http://www.graphviz.org/Download_macos.php)|
 | Windows | [Download installer](http://www.graphviz.org/Download_windows.php) |
 
 
 ### Installation
 
-Use this for user-level installation:
+User-level installation: Put Leiningen coordinate into the `:plugins` vector of your `:user` profile.
 
-Put `[lein-viz "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
-profile.
-
-Use this for project-level installation:
-
-Put `[lein-viz "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
+Project-level installation: Put Leiningen coordinate into the `:plugins` vector of your `project.clj`.
 
 
 ### Quickstart
@@ -40,28 +35,45 @@ Create a function in your project to return visualization data.
   {:service [:db :mailer]
    :db [:datasource]
    :datasource [:db-host :db-port :database :username :password]
-   :mailer [:smtp-host :smtp-port]
-   :db-host [:config]
-   :db-port [:config]
-   :database [:config]})
+   :mailer [:smtp-host :smtp-port]})
+
+(defn make-tree
+  []
+  [:foo [10 20] :bar [30 40] :baz [50]])
 ```
 
 Then run this plugin:
 
 ```
-$ lein viz foo.core/make-graph
+$ lein viz -t foo.core/make-graph
 ```
 
-If you want to set the fetch fn as a default, put the following in `project.clj`:
+
+#### Project config
+
+If you want to set the generator fn as a default, put the following in `project.clj`:
 
 ```clojure
 :viz {:default foo.core/make-graph}
 ```
 
-Then, you can simply run:
+Then, because `:default` is a special key, you can simply run:
 
 ```
 $ lein viz
+```
+
+If you have more than one data generators, you can specify them as follows:
+
+```clojure
+:viz {:g1 foo.core/make-graph-1
+      :g2 foo.core/make-graph-2}
+```
+
+Then, specify the one you want to visualize:
+
+```
+$ lein viz -t :g1
 ```
 
 

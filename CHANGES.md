@@ -9,7 +9,7 @@
   * Read EDN input from STDIN when target is unspecified or when last arg is `--`
 
 
-## 0.1.0 / 2016-July-??
+## 0.1.0 / 2016-July-19
 
 * CLI support
   * Target (fully qualified var name, arity-0 fn) support for fetching visualization data

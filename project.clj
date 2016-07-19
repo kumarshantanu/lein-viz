@@ -1,4 +1,4 @@
-(defproject lein-viz "0.1.0-SNAPSHOT"
+(defproject lein-viz "0.1.0"
   :description "Leiningen plugin to visualize graph and tree data"
   :url "https://github.com/kumarshantanu/lein-viz"
   :license {:name "Eclipse Public License"
