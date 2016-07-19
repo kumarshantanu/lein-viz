@@ -50,7 +50,7 @@
 (defn view-tree
   [tree]
   (viz/view-tree sequential? seq tree
-    :node->descriptor identity))
+    :node->descriptor (fn [node] {:label (pr-str node)})))
 
 
 (defn visualize
