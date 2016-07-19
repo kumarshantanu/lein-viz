@@ -20,8 +20,9 @@
 
 (defn view-graph
   [graph]
-  (let [all-dep-keys (set (mapcat second graph))]
-    (viz/view-graph (keys graph) graph
+  (let [all-dep-keys (set (mapcat second graph))
+        missing-keys (set (filter #(not (contains? graph %)) all-dep-keys))]
+    (viz/view-graph (concat (keys graph) missing-keys) graph
       :node->descriptor (fn [node] (let [color-leaf (fn [m]
                                                       (if (seq (get graph node))
                                                         m
@@ -33,10 +34,17 @@
                                                         m
                                                         (assoc m
                                                           :style :filled
-                                                          :fillcolor :tan)))]
+                                                          :fillcolor :tan)))
+                                         color-missing (fn [m]
+                                                         (if (contains? missing-keys node)
+                                                           (assoc m
+                                                             :style :filled
+                                                             :fillcolor :pink)
+                                                           m))]
                                      (-> {:label node}
                                        color-leaf
-                                       color-root))))))
+                                       color-root
+                                       color-missing))))))
 
 
 (defn view-tree

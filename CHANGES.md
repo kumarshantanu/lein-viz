@@ -20,4 +20,5 @@
 * Show graph GUI
   * Color leaf nodes as green
   * Color root nodes as tan
+  * Color missing dependency nodes as pink
 * Show tree GUI
