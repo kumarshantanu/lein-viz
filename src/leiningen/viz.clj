@@ -9,16 +9,30 @@
 
 (ns leiningen.viz
   (:require
+    [leiningen.core.main   :as main]
     [leiningen.viz.cli     :as cli]
     [leiningen.viz.core    :as viz]
     [leiningen.viz.project :as proj]))
 
 
 (defn viz
-  "Visualize graph and tree data."
+  "Visualize graph and tree data.
+  Run with --usage switch to see CLI options."
   [project & args]
-  (let [{:keys [target type]} (cli/parse-opts args)
-        data (proj/resolve-data project target)
-        type (proj/resolve-type project target data type)]
+  (let [{:keys [selector]
+         :as options}  (cli/parse-opts args)
+        plugin-config  (proj/plugin-config project selector)
+        payload-source (some :source [options plugin-config])
+        {:keys [data]
+         :as payload} (proj/resolve-payload project payload-source)
+        data-type     (case (some :type [options plugin-config])
+                        "graph" "graph"
+                        "tree"  "tree"
+                        (cond
+                          (map? data) "graph"
+                          (seq  data) "tree"
+                          :otherwise  (main/abort
+                                        (format "Cannot determine data type - expected a map or sequence, but found %s"
+                                          (pr-str data)))))]
     (viz/visualize {:data data
-                    :type type})))
+                    :type data-type})))

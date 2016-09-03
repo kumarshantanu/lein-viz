@@ -6,5 +6,5 @@
   :eval-in-leiningen true
   :dependencies [[rhizome "0.2.7"]
                  [org.clojure/tools.cli "0.3.5"]]
-  :viz {:graph lein-viz.sample/make-graph
-        :tree  lein-viz.sample/make-tree})
+  :viz {:graph {:source lein-viz.sample/make-graph}
+        :tree  {:source lein-viz.sample/make-tree}})

@@ -16,13 +16,12 @@
 
 
 (def cli-options
-  [["-t" "--target TARGET" "Fully qualified var name (arity-0 fn) or key in :viz map in project.clj"
-    :default :default
-    :parse-fn edn/read-string]
+  [["-e" "--selector SELECTOR" "Selector key in :viz map in project.clj" :parse-fn edn/read-string
+    :default :default]
+   ["-s" "--source SOURCE" "Fully qualified var name (arity-0 fn)"       :parse-fn edn/read-string]
    ["-y" "--type DATATYPE" "Data type: Either of auto, graph and tree"
-    :default  "auto"
     :validate [#{nil "auto" "graph" "tree"} "Value must be auto, graph or tree"]]
-   ["-h" "--help" "Show help text"]])
+   ["-u" "--usage" "Show usage text"]])
 
 
 (defn usage
@@ -51,6 +50,6 @@ Options:
                 errors
                 summary]} (cli/parse-opts args cli-options)]
     (cond
-      (:help options) (main/exit 0 (usage summary))
-      errors          (main/abort  (error-msg errors)))
+      (:usage options) (main/abort (usage summary))
+      errors           (main/abort  (error-msg errors)))
     options))

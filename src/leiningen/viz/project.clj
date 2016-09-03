@@ -20,7 +20,12 @@
 (def project-key :viz)
 
 
-(defn obtain-data
+(defn plugin-config
+  [project selector-key]
+  (get-in project [project-key selector-key]))
+
+
+(defn fetch-payload
   [project fqvarname]
   (let [tokens (-> (str fqvarname)
                  (string/split #"/"))]
@@ -40,33 +45,20 @@
         (str "Expected fully-qualified var name (e.g. foo.bar/baz), but found " (pr-str fqvarname))))))
 
 
-(defn resolve-data
-  [project cli-target]
-  (if (and (symbol? cli-target)
-        (> (.indexOf (str cli-target) (int \/)) -1))  ; is this a fully-qualified var name?
-    (obtain-data project cli-target)
-    (if-let [target (get-in project [project-key cli-target])]
-      (obtain-data project target)
-      (main/abort
-        (format "No such target %s found under the %s key in project.clj: %s"
-          (pr-str cli-target) project-key (pr-str (get project project-key)))))))
-
-
-(defn resolve-raw-type
-  [data type]
-  (if (= type "auto")
+(defn resolve-payload
+  [project payload-source]
+  (if payload-source
     (cond
-      (map? data)        "graph"
-      (sequential? data) "tree"
-      :otherwise         (main/abort (format "Cannot determine data type - expected a map or sequence, but found %"
-                                       (pr-str data))))
-    type))
-
-
-(defn resolve-type
-  [project target data type]
-  (if type
-    (resolve-raw-type data type)
-    (if-let [type (get-in project [project-key target :type])]
-      (resolve-raw-type data type)
-      (resolve-raw-type data "auto"))))
+      (= :stdin payload-source)  (edn/read-string (slurp *in*))
+      (and
+        (symbol? payload-source)
+        (pos?                    ; is this a fully-qualified var name?
+          (.indexOf
+            (str payload-source)
+            (int \/))))          (fetch-payload project payload-source)
+      :otherwise                 (main/abort
+                                   (format "Expected source to be ':stdin' or fully-qualified defn var name, found %s"
+                                     (pr-str payload-source))))
+    (main/abort
+      (format "Must specify source via '--source' CLI option or via [%s selector :source] keypath in project.clj: %s"
+        project-key (get project project-key)))))
