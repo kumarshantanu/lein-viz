@@ -18,6 +18,7 @@
 (def cli-options
   [["-e" "--selector SELECTOR" "Selector key in :viz map in project.clj" :parse-fn edn/read-string
     :default :default]
+   ["-m" "--hide-missing"  "Hide missing nodes in a graph"]
    ["-s" "--source SOURCE" "Fully qualified var name (arity-0 fn)"       :parse-fn edn/read-string]
    ["-y" "--type DATATYPE" "Data type: Either of auto, graph and tree"
     :validate [#{nil "auto" "graph" "tree"} "Value must be auto, graph or tree"]]

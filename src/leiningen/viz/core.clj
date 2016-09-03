@@ -19,10 +19,11 @@
 
 
 (defn view-graph
-  [graph]
+  [graph {:keys [hide-missing?]
+          :or {hide-missing? true}}]
   (let [all-dep-keys (set (mapcat second graph))
         missing-keys (set (filter #(not (contains? graph %)) all-dep-keys))]
-    (viz/view-graph (concat (keys graph) missing-keys) graph
+    (viz/view-graph (concat (keys graph) (when-not hide-missing? missing-keys)) graph
       :node->descriptor (fn [node] (let [color-leaf (fn [m]
                                                       (if (seq (get graph node))
                                                         m
@@ -54,8 +55,8 @@
 
 
 (defn visualize
-  [{:keys [data type] :or {type "graph"}}]
+  [{:keys [data type hide-missing?] :or {type "graph"}}]
   (case type
-    "graph" (view-graph data)
+    "graph" (view-graph data {:hide-missing? hide-missing?})
     "tree"  (view-tree data))
   (wait-for-window-close))

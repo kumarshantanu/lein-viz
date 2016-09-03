@@ -16,7 +16,7 @@
   * BREAKING CHANGE: Target is now called source `["-s" "--source SOURCE" "Fully qualified defn var name (arity-0)"]`
   * BREAKING CHANGE: Source may now be placed only under the `:source` key under a selector
   * Read payload from STDIN when source is `:stdin`
-  * [TODO] Flag to show/hide non-existent dependencies
+  * Flag to show/hide missing nodes `["-m" "--hide-missing" "Hide missing nodes in a graph"]`
   * [TODO] Flag to show the graph starting from a specified root
   * [TODO] Main action `["-a" "--action ACTION" "Action: view|emit" :default "view" ..]`
   * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`

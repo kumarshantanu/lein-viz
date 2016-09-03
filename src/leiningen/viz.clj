@@ -33,6 +33,8 @@
                           (seq  data) "tree"
                           :otherwise  (main/abort
                                         (format "Cannot determine data type - expected a map or sequence, but found %s"
-                                          (pr-str data)))))]
+                                          (pr-str data)))))
+        hide-missing? (some :hide-missing [options plugin-config])]
     (viz/visualize {:data data
-                    :type data-type})))
+                    :type data-type
+                    :hide-missing? hide-missing?})))
