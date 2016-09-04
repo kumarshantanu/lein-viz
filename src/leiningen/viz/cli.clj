@@ -18,9 +18,9 @@
 (def cli-options
   [["-e" "--selector SELECTOR" "Selector key in :viz map in project.clj" :parse-fn edn/read-string
     :default :default]
-   ["-m" "--hide-missing"  "Hide missing nodes in a graph"]
-   ["-s" "--source SOURCE" "Fully qualified var name (arity-0 fn)"       :parse-fn edn/read-string]
-   ["-z" "--zoom NODE"     "The sub-graph root node (EDN) to zoom on"    :parse-fn edn/read-string]
+   ["-m" "--hide-missing"      "Hide missing nodes in a graph"]
+   ["-s" "--source SOURCE"     "Fully qualified var name (arity-0 fn)"   :parse-fn edn/read-string]
+   ["-z" "--zoom-node NODE"    "Sub-graph root node (EDN) to zoom into"  :parse-fn edn/read-string]
    ["-u" "--usage" "Show usage text"]])
 
 

@@ -28,7 +28,7 @@
                 seed]
          :as payload}  (proj/resolve-payload project payload-source)
         hide-missing?  (some :hide-missing [cli-opts plugin-config])
-        zoom-node      (some :zoom         [cli-opts plugin-config])]
+        zoom-node      (some :zoom-node    [cli-opts plugin-config])]
     (viz/visualize {:graph graph
                     :tree  tree
                     :hide-missing? hide-missing?

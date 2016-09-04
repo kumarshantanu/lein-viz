@@ -17,7 +17,7 @@
   * BREAKING CHANGE: Source may now be placed only under the `:source` key under a selector
   * Read payload from STDIN when source is `:stdin`
   * Flag to show/hide missing nodes `["-m" "--hide-missing" "Hide missing nodes in a graph"]`
-  * Flag to zoom in on a sub-graph at specified root `["-z" "--zoom NODE" "Sub-graph root node to zoom on"]`
+  * Flag to zoom in on a sub-graph at specified root `["-z" "--zoom-node NODE" "Sub-graph root node to zoom on"]`
   * [TODO] Main action `["-a" "--action ACTION" "Action: view|emit" :default "view" ..]`
   * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
 
