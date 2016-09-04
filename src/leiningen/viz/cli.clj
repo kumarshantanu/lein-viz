@@ -20,8 +20,6 @@
     :default :default]
    ["-m" "--hide-missing"  "Hide missing nodes in a graph"]
    ["-s" "--source SOURCE" "Fully qualified var name (arity-0 fn)"       :parse-fn edn/read-string]
-   ["-y" "--type DATATYPE" "Data type: Either of auto, graph and tree"
-    :validate [#{nil "auto" "graph" "tree"} "Value must be auto, graph or tree"]]
    ["-z" "--zoom NODE"     "The sub-graph root node (EDN) to zoom on"    :parse-fn edn/read-string]
    ["-u" "--usage" "Show usage text"]])
 

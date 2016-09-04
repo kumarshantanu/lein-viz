@@ -12,13 +12,13 @@
 
 (defn make-graph
   []
-  {:data {:service [:db :mailer]
-          :db [:datasource]
-          :datasource [:db-host :db-port :database :username :password]
-          :mailer [:smtp-host :smtp-port]}
+  {:graph {:service [:db :mailer]
+           :db [:datasource]
+           :datasource [:db-host :db-port :database :username :password]
+           :mailer [:smtp-host :smtp-port]}
    :seed [:db-host :db-port :username :password]})
 
 
 (defn make-tree
   []
-  {:data [:foo [10 20] :bar [30 40] :baz [50]]})
+  {:tree [:foo [10 20] :bar [30 40] :baz [50]]})

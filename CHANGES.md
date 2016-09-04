@@ -5,9 +5,10 @@
 ## 0.2.0 / 2016-September-??
 
 * Payload
-  * BREAKING CHANGE: Data to be under the key `:data`
+  * BREAKING CHANGE: Graph data to come under the key `:graph` in a payload map
+  * BREAKING CHANGE: Tree data to come under the key `:tree` in a payload map
   * [TODO] Visualization metadata to be under `:layout`
-  * Known missing nodes to be under the key `:seed`
+  * Known missing nodes to come under the key `:seed`
 * Features
   * [TODO] Labeled edges: http://zerosalife.github.io/blog/2014/04/26/clojure-rhizome-labeled-edge-tutorial/
 * CLI support

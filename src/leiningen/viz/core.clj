@@ -69,15 +69,14 @@
 
 
 (defn visualize
-  [{:keys [data
-           type
+  [{:keys [graph
+           tree
            hide-missing?
            known-missing
-           zoom-node]
-    :or {type "graph"}}]
-  (case type
-    "graph" (view-graph data {:hide-missing? hide-missing?
-                              :known-missing known-missing
-                              :zoom-node     zoom-node})
-    "tree"  (view-tree data))
+           zoom-node]}]
+  (cond
+    graph (view-graph graph {:hide-missing? hide-missing?
+                             :known-missing known-missing
+                             :zoom-node     zoom-node})
+    tree  (view-tree tree))
   (wait-for-window-close))

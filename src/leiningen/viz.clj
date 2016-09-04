@@ -20,25 +20,17 @@
   Run with --usage switch to see CLI options."
   [project & args]
   (let [{:keys [selector]
-         :as options}  (cli/parse-opts args)
+         :as cli-opts} (cli/parse-opts args)
         plugin-config  (proj/plugin-config project selector)
-        payload-source (some :source [options plugin-config])
-        {:keys [data
+        payload-source (some :source [cli-opts plugin-config])
+        {:keys [graph
+                tree
                 seed]
-         :as payload} (proj/resolve-payload project payload-source)
-        data-type     (case (some :type [options plugin-config])
-                        "graph" "graph"
-                        "tree"  "tree"
-                        (cond
-                          (map? data) "graph"
-                          (seq  data) "tree"
-                          :otherwise  (main/abort
-                                        (format "Cannot determine data type - expected a map or sequence, but found %s"
-                                          (pr-str data)))))
-        hide-missing? (some :hide-missing [options plugin-config])
-        zoom-node     (some :zoom         [options plugin-config])]
-    (viz/visualize {:data data
-                    :type data-type
+         :as payload}  (proj/resolve-payload project payload-source)
+        hide-missing?  (some :hide-missing [cli-opts plugin-config])
+        zoom-node      (some :zoom         [cli-opts plugin-config])]
+    (viz/visualize {:graph graph
+                    :tree  tree
                     :hide-missing? hide-missing?
                     :known-missing (set seed)
                     :zoom-node zoom-node})))
