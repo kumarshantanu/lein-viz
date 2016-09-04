@@ -15,7 +15,8 @@
   {:data {:service [:db :mailer]
           :db [:datasource]
           :datasource [:db-host :db-port :database :username :password]
-          :mailer [:smtp-host :smtp-port]}})
+          :mailer [:smtp-host :smtp-port]}
+   :seed [:db-host :db-port :username :password]})
 
 
 (defn make-tree

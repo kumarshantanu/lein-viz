@@ -23,7 +23,8 @@
          :as options}  (cli/parse-opts args)
         plugin-config  (proj/plugin-config project selector)
         payload-source (some :source [options plugin-config])
-        {:keys [data]
+        {:keys [data
+                seed]
          :as payload} (proj/resolve-payload project payload-source)
         data-type     (case (some :type [options plugin-config])
                         "graph" "graph"
@@ -39,4 +40,5 @@
     (viz/visualize {:data data
                     :type data-type
                     :hide-missing? hide-missing?
+                    :known-missing (set seed)
                     :zoom-node zoom-node})))

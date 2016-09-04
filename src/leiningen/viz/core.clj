@@ -19,8 +19,11 @@
 
 
 (defn view-graph
-  [graph {:keys [hide-missing? zoom-node]
-          :or {hide-missing? true}}]
+  [graph {:keys [hide-missing?
+                 known-missing
+                 zoom-node]
+          :or {hide-missing? true
+               known-missing #{}}}]
   (let [graph (if zoom-node
                 (letfn [(sub-graph [node]
                           (loop [selected [node]
@@ -49,7 +52,9 @@
                                                          (if (contains? missing-keys node)
                                                            (assoc m
                                                              :style :filled
-                                                             :fillcolor :pink)
+                                                             :fillcolor (if (contains? known-missing node)
+                                                                          :orange
+                                                                          :pink))
                                                            m))]
                                      (-> {:label node}
                                        color-leaf
@@ -64,9 +69,15 @@
 
 
 (defn visualize
-  [{:keys [data type hide-missing? zoom-node] :or {type "graph"}}]
+  [{:keys [data
+           type
+           hide-missing?
+           known-missing
+           zoom-node]
+    :or {type "graph"}}]
   (case type
     "graph" (view-graph data {:hide-missing? hide-missing?
+                              :known-missing known-missing
                               :zoom-node     zoom-node})
     "tree"  (view-tree data))
   (wait-for-window-close))

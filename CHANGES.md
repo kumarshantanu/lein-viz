@@ -5,12 +5,11 @@
 ## 0.2.0 / 2016-September-??
 
 * Payload
-  * Data to be under the key `:data`
+  * BREAKING CHANGE: Data to be under the key `:data`
   * [TODO] Visualization metadata to be under `:layout`
-  * [TODO] Authorized seed keys to be under `:seed`
+  * Known missing nodes to be under the key `:seed`
 * Features
   * [TODO] Labeled edges: http://zerosalife.github.io/blog/2014/04/26/clojure-rhizome-labeled-edge-tutorial/
-  * [TODO] Zoom into a subgraph by specifying the tip/root at the command line
 * CLI support
   * Support for choosing selector `["-e" "--selector SELECTOR" "Selector in project.clj"]`
   * BREAKING CHANGE: Target is now called source `["-s" "--source SOURCE" "Fully qualified defn var name (arity-0)"]`
