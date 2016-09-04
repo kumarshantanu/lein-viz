@@ -13,7 +13,7 @@
 (defn make-graph
   []
   {:graph {:service [:db :mailer]
-           :db {:conn-pool :datasource}
+           :db {:connection-pool :datasource}
            :datasource [:db-host
                         :db-port
                         :database
