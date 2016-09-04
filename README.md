@@ -5,7 +5,7 @@ A Leiningen plugin to visualize graph and tree data.
 
 ## Usage
 
-Leiningen coordinates: `[lein-viz 0.1.0]`
+Leiningen coordinates: `[lein-viz 0.2.0]`
 
 You need to have [Graphviz](http://www.graphviz.org/) installed to use this plugin.
 
@@ -23,7 +23,14 @@ User-level installation: Put Leiningen coordinate into the `:plugins` vector of 
 Project-level installation: Put Leiningen coordinate into the `:plugins` vector of your `project.clj`.
 
 
-### Quickstart
+### Quickstart via command line
+
+```bash
+$ echo "{:graph {:pizza [:toppings :base :cheese] :base {:cooked :dough}}}" | lein viz -s :stdin
+```
+
+
+### Quickstart via code
 
 Create a function in your project to return visualization data.
 
@@ -32,29 +39,30 @@ Create a function in your project to return visualization data.
 
 (defn make-graph
   []
-  {:service [:db :mailer]
-   :db [:datasource]
-   :datasource [:db-host :db-port :database :username :password]
-   :mailer [:smtp-host :smtp-port]})
+  {:graph {:service [:db :mailer]
+           :db {:connection-pool :datasource}
+           :datasource [:db-host :db-port :database :username :password]
+           :mailer [:smtp-host :smtp-port]}})
 
 (defn make-tree
   []
-  [:foo [10 20] :bar [30 40] :baz [50]])
+  {:tree [:foo [10 20] :bar [30 40] :baz [50]]})
 ```
 
 Then run this plugin:
 
 ```
-$ lein viz -t foo.core/make-graph
+$ lein viz -s foo.core/make-graph
+$ lein viz -s foo.core/make-tree
 ```
 
 
 #### Project config
 
-If you want to set the generator fn as a default, put the following in `project.clj`:
+If you want to set the source fn as a default, put the following in `project.clj`:
 
 ```clojure
-:viz {:default foo.core/make-graph}
+:viz {:default {:source foo.core/make-graph}}
 ```
 
 Then, because `:default` is a special key, you can simply run:
@@ -66,14 +74,14 @@ $ lein viz
 If you have more than one data generators, you can specify them as follows:
 
 ```clojure
-:viz {:g1 foo.core/make-graph-1
-      :g2 foo.core/make-graph-2}
+:viz {:g1 {:source foo.core/make-graph-1}
+      :g2 {:source foo.core/make-graph-2}}
 ```
 
 Then, specify the one you want to visualize:
 
 ```
-$ lein viz -t :g1
+$ lein viz -e :g1
 ```
 
 

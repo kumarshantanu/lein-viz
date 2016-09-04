@@ -9,7 +9,7 @@
   * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
 
 
-## 0.2.0 / 2016-September-??
+## 0.2.0 / 2016-September-04
 
 * Payload
   * BREAKING CHANGE: Graph data to come under the key `:graph` in a payload map
