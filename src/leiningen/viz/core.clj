@@ -22,7 +22,7 @@
   "Given dependencies, return the dependency keys as a collection."
   [deps]
   (if (map? deps)
-    (keys deps)   ; return just the keys if dependencies are a map of keys to edge-names
+    (vals deps)   ; if deps are a map, then vals are the dependency nodes, keys are edge-names
     (into [] deps)))
 
 
@@ -80,9 +80,13 @@
                                        color-root
                                        color-missing)))
       ;; Labeled edges reference: http://zerosalife.github.io/blog/2014/04/26/clojure-rhizome-labeled-edge-tutorial/
-      :edge->descriptor (fn [src dst] {:label (-> graph
-                                                (get src)
-                                                (get dst))}))))
+      :edge->descriptor (fn [src dst] {:label (let [deps (get graph src)]
+                                                (when (map? deps)
+                                                  ;; In a dependency map the keys are edge-labels, so we reverse the
+                                                  ;; map to lookup the destination in order to determine the edge label
+                                                  (get (reduce (fn ([] {})
+                                                                 ([m [k v]] (assoc m v k))) {} deps)
+                                                    dst)))}))))
 
 
 (defn view-tree

@@ -16,7 +16,7 @@
   * BREAKING CHANGE: Tree data to come under the key `:tree` in a payload map
   * Known missing nodes to come under the key `:seed`
 * Visualization
-  * Support for labeled edges via map of adjacency list to edge labels
+  * Support for labeled edges via dependency map of edge-labels to adjacency-list
 * CLI support
   * Support for choosing selector `["-e" "--selector SELECTOR" "Selector in project.clj"]`
   * BREAKING CHANGE: Target is now called source `["-s" "--source SOURCE" "Fully qualified defn var name (arity-0)"]`
