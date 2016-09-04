@@ -2,15 +2,21 @@
 
 ## TODO
 
+* Payload
+  * [TODO] Visualization metadata to be under `:layout`
+* CLI support
+  * [TODO] Main action `["-a" "--action ACTION" "Action: view|emit" :default "view" ..]`
+  * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
+
+
 ## 0.2.0 / 2016-September-??
 
 * Payload
   * BREAKING CHANGE: Graph data to come under the key `:graph` in a payload map
   * BREAKING CHANGE: Tree data to come under the key `:tree` in a payload map
-  * [TODO] Visualization metadata to be under `:layout`
   * Known missing nodes to come under the key `:seed`
-* Features
-  * [TODO] Labeled edges: http://zerosalife.github.io/blog/2014/04/26/clojure-rhizome-labeled-edge-tutorial/
+* Visualization
+  * Support for labeled edges via map of adjacency list to edge labels
 * CLI support
   * Support for choosing selector `["-e" "--selector SELECTOR" "Selector in project.clj"]`
   * BREAKING CHANGE: Target is now called source `["-s" "--source SOURCE" "Fully qualified defn var name (arity-0)"]`
@@ -18,8 +24,6 @@
   * Read payload from STDIN when source is `:stdin`
   * Flag to show/hide missing nodes `["-m" "--hide-missing" "Hide missing nodes in a graph"]`
   * Flag to zoom in on a sub-graph at specified root `["-z" "--zoom-node NODE" "Sub-graph root node to zoom on"]`
-  * [TODO] Main action `["-a" "--action ACTION" "Action: view|emit" :default "view" ..]`
-  * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
 
 
 ## 0.1.0 / 2016-July-19

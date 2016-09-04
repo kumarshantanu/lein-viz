@@ -18,6 +18,23 @@
     (Thread/sleep 10)))
 
 
+(defn as-dep-keys
+  "Given dependencies, return the dependency keys as a collection."
+  [deps]
+  (if (map? deps)
+    (keys deps)   ; return just the keys if dependencies are a map of keys to edge-names
+    (into [] deps)))
+
+
+(defn viz-graph
+  "Given a graph with keys and either adjacency-list or map of adjacency-list to edge-labels, return a map of keys to
+  adjacency-list."
+  [graph]
+  (let [ks (keys graph)
+        vs (vals graph)]
+    (zipmap ks (map as-dep-keys vs))))
+
+
 (defn view-graph
   [graph {:keys [hide-missing?
                  known-missing
@@ -25,17 +42,19 @@
           :or {hide-missing? true
                known-missing #{}}}]
   (let [graph (if zoom-node
-                (letfn [(sub-graph [node]
-                          (loop [selected [node]
-                                 pending  (get graph node)]
-                            (if (seq pending)
-                              (recur (concat selected pending) (mapcat #(get graph %) pending))
-                              (select-keys graph selected))))]
+                (letfn [(dep-keys [node]
+                          (as-dep-keys (get graph node)))
+                        (sub-graph [node]
+                          (loop [sub-ks [node]
+                                 rem-ks (dep-keys node)]
+                            (if (seq rem-ks)
+                              (recur (concat sub-ks rem-ks) (mapcat dep-keys rem-ks))
+                              (select-keys graph sub-ks))))]
                   (sub-graph zoom-node))
                 graph)
-        all-dep-keys (set (mapcat second graph))
+        all-dep-keys (set (mapcat #(as-dep-keys (second %)) graph))
         missing-keys (set (filter #(not (contains? graph %)) all-dep-keys))]
-    (viz/view-graph (concat (keys graph) (when-not hide-missing? missing-keys)) graph
+    (viz/view-graph (concat (keys graph) (when-not hide-missing? missing-keys)) (viz-graph graph)
       :node->descriptor (fn [node] (let [color-leaf (fn [m]
                                                       (if (seq (get graph node))
                                                         m
@@ -59,7 +78,11 @@
                                      (-> {:label node}
                                        color-leaf
                                        color-root
-                                       color-missing))))))
+                                       color-missing)))
+      ;; Labeled edges reference: http://zerosalife.github.io/blog/2014/04/26/clojure-rhizome-labeled-edge-tutorial/
+      :edge->descriptor (fn [src dst] {:label (-> graph
+                                                (get src)
+                                                (get dst))}))))
 
 
 (defn view-tree
