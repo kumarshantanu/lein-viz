@@ -12,9 +12,9 @@
 ## 0.2.1-SNAPSHOT / 2016-September-??
 
 * Abort with error when payload is not a map
-* [TODO] Abort with error when payload contains neither `:graph` not `:tree` key
-* [TODO] Abort with error when payload `:graph` value is not a map
-* [TODO] Abort with error when payload `:tree` value is not a collection
+* Abort with error when payload contains neither `:graph` not `:tree` key
+* Abort with error when payload `:graph` value is not a map
+* Abort with error when payload `:tree` value is not a collection
 
 
 ## 0.2.0 / 2016-September-04

@@ -15,6 +15,11 @@
     [leiningen.viz.project :as proj]))
 
 
+(def payload-err   "Expected visualization payload to have :graph or :tree key with non-nil value, but found keys %s")
+(def graph-map-err "Expected visualization payload :graph to be a map, but found %s")
+(def tree-coll-err "Expected visualization payload :tree to be a collection, but found %s")
+
+
 (defn viz
   "Visualize graph and tree data.
   Run with --usage switch to see CLI options."
@@ -29,8 +34,14 @@
          :as payload}  (proj/resolve-payload project payload-source)
         hide-missing?  (some :hide-missing [cli-opts plugin-config])
         zoom-node      (some :zoom-node    [cli-opts plugin-config])]
-    (viz/visualize {:graph graph
-                    :tree  tree
-                    :hide-missing? hide-missing?
-                    :known-missing (set seed)
-                    :zoom-node zoom-node})))
+    (cond
+      (not (or graph tree)) (main/abort (format payload-err   (pr-str (vec (keys payload)))))
+      (and graph
+        (not (map? graph))) (main/abort (format graph-map-err (pr-str graph)))
+      (and tree
+        (not (coll? tree))) (main/abort (format tree-coll-err (pr-str tree)))
+      :otherwise            (viz/visualize {:graph graph
+                                            :tree  tree
+                                            :hide-missing? hide-missing?
+                                            :known-missing (set seed)
+                                            :zoom-node zoom-node}))))
