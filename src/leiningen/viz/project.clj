@@ -45,17 +45,26 @@
         (str "Expected fully-qualified var name (e.g. foo.bar/baz), but found " (pr-str fqvarname))))))
 
 
+(defn verify-payload
+  [payload]
+  (when-not (map? payload)
+    (main/abort
+      (format "Expected visualization payload to be a map, but found %s"
+        (pr-str payload))))
+  payload)
+
+
 (defn resolve-payload
   [project payload-source]
   (if payload-source
     (cond
-      (= :stdin payload-source)  (edn/read-string (slurp *in*))
+      (= :stdin payload-source)  (verify-payload (edn/read-string (slurp *in*)))
       (and
         (symbol? payload-source)
         (pos?                    ; is this a fully-qualified var name?
           (.indexOf
             (str payload-source)
-            (int \/))))          (fetch-payload project payload-source)
+            (int \/))))          (verify-payload (fetch-payload project payload-source))
       :otherwise                 (main/abort
                                    (format "Expected source to be ':stdin' or fully-qualified defn var name, found %s"
                                      (pr-str payload-source))))
