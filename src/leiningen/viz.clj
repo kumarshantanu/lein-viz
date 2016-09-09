@@ -32,6 +32,7 @@
                 tree
                 seed]
          :as payload}  (proj/resolve-payload project payload-source)
+        output-file    (some :output-file  [cli-opts plugin-config])
         hide-missing?  (some :hide-missing [cli-opts plugin-config])
         zoom-node      (some :zoom-node    [cli-opts plugin-config])]
     (cond
@@ -42,6 +43,7 @@
         (not (coll? tree))) (main/abort (format tree-coll-err (pr-str tree)))
       :otherwise            (viz/visualize {:graph graph
                                             :tree  tree
+                                            :output-file   output-file
                                             :hide-missing? hide-missing?
                                             :known-missing (set seed)
                                             :zoom-node zoom-node}))))

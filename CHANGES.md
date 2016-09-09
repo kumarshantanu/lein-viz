@@ -11,7 +11,7 @@
 
 ## 0.3.0 / 2016-September-??
 
-* [TODO] Image `["-o" "--output-file FILE" "File to output rendered image to"]`
+* Image output: `["-o" "--output-file FILE" "File to output rendered image to"]`
 * [TODO] Node labels may be specified in the payload under the kay `:labels`
 
 

@@ -36,9 +36,9 @@
 
 
 (defn view-graph
-  [graph {:keys [hide-missing? known-missing zoom-node]
-          :or {hide-missing? true
-               known-missing #{}}}]
+  [f graph {:keys [hide-missing? known-missing zoom-node]
+            :or {hide-missing? true
+                 known-missing #{}}}]
   (let [graph (if zoom-node
                 (letfn [(dep-keys  [node] (as-dep-keys (get graph node)))
                         (sub-graph [node] (loop [sub-ks [node]
@@ -50,7 +50,7 @@
                 graph)
         all-dep-keys (set (mapcat #(as-dep-keys (second %)) graph))
         missing-keys (set (filter #(not (contains? graph %)) all-dep-keys))]
-    (viz/view-graph (concat (keys graph) (when-not hide-missing? missing-keys)) (viz-graph graph)
+    (f (concat (keys graph) (when-not hide-missing? missing-keys)) (viz-graph graph)
       :node->descriptor (fn [node] (letfn [(color-leaf    [m] (if (seq (get graph node))
                                                                 m
                                                                 (assoc m
@@ -83,20 +83,27 @@
 
 
 (defn view-tree
-  [tree]
-  (viz/view-tree sequential? seq tree
+  [f tree]
+  (f sequential? seq tree
     :node->descriptor (fn [node] {:label (pr-str node)})))
 
 
 (defn visualize
   [{:keys [graph
            tree
+           output-file
            hide-missing?
            known-missing
            zoom-node]}]
   (cond
-    graph (view-graph graph {:hide-missing? hide-missing?
-                             :known-missing known-missing
-                             :zoom-node     zoom-node})
-    tree  (view-tree tree))
+    graph (view-graph (if output-file
+                        (comp #(viz/save-image % output-file) viz/graph->image)
+                        viz/view-graph)
+            graph {:hide-missing? hide-missing?
+                   :known-missing known-missing
+                   :zoom-node     zoom-node})
+    tree  (view-tree (if output-file
+                       (comp #(viz/save-image % output-file) viz/tree->image)
+                       viz/view-tree)
+            tree))
   (wait-for-window-close))
