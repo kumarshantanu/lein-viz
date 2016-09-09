@@ -9,6 +9,12 @@
   * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
 
 
+## 0.3.0 / 2016-September-??
+
+* [TODO] Image `["-o" "--output-file FILE" "File to output rendered image to"]`
+* [TODO] Node labels may be specified in the payload under the kay `:labels`
+
+
 ## 0.2.1 / 2016-September-06
 
 * Abort on payload error
