@@ -30,6 +30,7 @@
         payload-source (some :source [cli-opts plugin-config])
         {:keys [graph
                 tree
+                node-labels
                 seed]
          :as payload}  (proj/resolve-payload project payload-source)
         output-file    (some :output-file  [cli-opts plugin-config])
@@ -43,6 +44,7 @@
         (not (coll? tree))) (main/abort (format tree-coll-err (pr-str tree)))
       :otherwise            (viz/visualize {:graph graph
                                             :tree  tree
+                                            :node-labels   node-labels
                                             :output-file   output-file
                                             :hide-missing? hide-missing?
                                             :known-missing (set seed)

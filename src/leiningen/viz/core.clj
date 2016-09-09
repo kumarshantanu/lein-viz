@@ -36,9 +36,10 @@
 
 
 (defn view-graph
-  [f graph {:keys [hide-missing? known-missing zoom-node]
+  [f graph {:keys [hide-missing? known-missing node-labels zoom-node]
             :or {hide-missing? true
-                 known-missing #{}}}]
+                 known-missing #{}
+                 node-labels   {}}}]
   (let [graph (if zoom-node
                 (letfn [(dep-keys  [node] (as-dep-keys (get graph node)))
                         (sub-graph [node] (loop [sub-ks [node]
@@ -68,7 +69,7 @@
                                                                                :orange
                                                                                :pink))
                                                                 m))]
-                                     (-> {:label node}
+                                     (-> {:label (or (get node-labels node) node)}
                                        color-leaf
                                        color-root
                                        color-missing)))
@@ -83,14 +84,16 @@
 
 
 (defn view-tree
-  [f tree]
+  [f tree {:keys [node-labels]
+           :or {node-labels {}}}]
   (f sequential? seq tree
-    :node->descriptor (fn [node] {:label (pr-str node)})))
+    :node->descriptor (fn [node] {:label (or (get node-labels node) (pr-str node))})))
 
 
 (defn visualize
   [{:keys [graph
            tree
+           node-labels
            output-file
            hide-missing?
            known-missing
@@ -100,10 +103,11 @@
                         (comp #(viz/save-image % output-file) viz/graph->image)
                         viz/view-graph)
             graph {:hide-missing? hide-missing?
+                   :node-labels   node-labels
                    :known-missing known-missing
                    :zoom-node     zoom-node})
     tree  (view-tree (if output-file
                        (comp #(viz/save-image % output-file) viz/tree->image)
                        viz/view-tree)
-            tree))
+            tree {:node-labels node-labels}))
   (wait-for-window-close))

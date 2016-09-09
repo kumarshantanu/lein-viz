@@ -20,6 +20,7 @@
                         :username
                         :password]
            :mailer [:smtp-host :smtp-port]}
+   :node-labels {:datasource :mysql-data-source}
    :seed [:db-host :db-port :username :password]})
 
 

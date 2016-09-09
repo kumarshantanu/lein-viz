@@ -2,17 +2,11 @@
 
 ## TODO
 
-* Payload
-  * [TODO] Visualization metadata to be under `:layout`
-* CLI support
-  * [TODO] Main action `["-a" "--action ACTION" "Action: view|emit" :default "view" ..]`
-  * [TODO] Image type `["-e" "--ext EXTENSION" "Image file extension (file type)" :default "png" ..]`
-
 
 ## 0.3.0 / 2016-September-??
 
 * Image output: `["-o" "--output-file FILE" "File to output rendered image to"]`
-* [TODO] Node labels may be specified in the payload under the kay `:labels`
+* Node labels may be specified in the payload under the kay `:node-labels`
 
 
 ## 0.2.1 / 2016-September-06
