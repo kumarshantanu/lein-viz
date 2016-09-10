@@ -6,7 +6,7 @@
 ## 0.3.0 / 2016-September-??
 
 * Image output: `["-o" "--output-file FILE" "File to output rendered image to"]`
-* Node labels may be specified in the payload under the kay `:node-labels`
+* Node labels may be specified in the payload under the key `:node-labels`
 
 
 ## 0.2.1 / 2016-September-06
