@@ -15,9 +15,16 @@
     [leiningen.viz.project :as proj]))
 
 
-(def payload-err   "Expected visualization payload to have :graph or :tree key with non-nil value, but found keys %s")
-(def graph-map-err "Expected visualization payload :graph to be a map, but found %s")
-(def tree-coll-err "Expected visualization payload :tree to be a collection, but found %s")
+(def payload-err
+  "Expected visualization payload to have :graph-data or :tree-data key with non-nil value, but found keys %s")
+
+
+(def graph-map-err
+  "Expected visualization payload :graph-data to be a map, but found %s")
+
+
+(def tree-coll-err
+  "Expected visualization payload :tree-data to be a collection, but found %s")
 
 
 (defn viz
