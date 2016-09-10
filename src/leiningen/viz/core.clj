@@ -36,10 +36,11 @@
 
 
 (defn view-graph
-  [f graph {:keys [hide-missing? known-missing node-labels zoom-node]
+  [f graph {:keys [hide-missing? known-missing node-labels node-shapes zoom-node]
             :or {hide-missing? true
                  known-missing #{}
-                 node-labels   {}}}]
+                 node-labels   {}
+                 node-shapes   {}}}]
   (let [graph (if zoom-node
                 (letfn [(dep-keys  [node] (as-dep-keys (get graph node)))
                         (sub-graph [node] (loop [sub-ks [node]
@@ -69,7 +70,8 @@
                                                                                :orange
                                                                                :pink))
                                                                 m))]
-                                     (-> {:label (or (get node-labels node) node)}
+                                     (-> {:label (or (get node-labels node) node)
+                                          :shape (get node-shapes node)}
                                        color-leaf
                                        color-root
                                        color-missing)))
@@ -94,6 +96,7 @@
   [{:keys [graph
            tree
            node-labels
+           node-shapes
            output-file
            hide-missing?
            known-missing
@@ -104,6 +107,7 @@
                         viz/view-graph)
             graph {:hide-missing? hide-missing?
                    :node-labels   node-labels
+                   :node-shapes   node-shapes
                    :known-missing known-missing
                    :zoom-node     zoom-node})
     tree  (view-tree (if output-file

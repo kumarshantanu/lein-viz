@@ -10,6 +10,7 @@
   * BREAKING CHANGE: Tree data to come under the key `:tree-data` in a payload map
   * BREAKING CHANGE: Seed keys to come under the key `:seed-keys` in a payload map
   * Node labels may be specified in the payload under the key `:node-labels`
+  * Node shapes may be specified in the payload under the key `:node-shapes`
 * CLI support
   * Image output: `["-o" "--output-file FILE" "Filename to output image to"]`
 

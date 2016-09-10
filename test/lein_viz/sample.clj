@@ -21,6 +21,7 @@
                               :password]
                  :mailer [:smtp-host :smtp-port]}
    :node-labels {:datasource :mysql-data-source}
+   :node-shapes {:datasource :rectangle}
    :seed-keys   [:db-host :db-port :username :password]})
 
 

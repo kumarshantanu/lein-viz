@@ -31,6 +31,7 @@
         {:keys [graph-data
                 tree-data
                 node-labels
+                node-shapes
                 seed-keys]
          :as payload}  (proj/resolve-payload project payload-source)
         output-file    (some :output-file  [cli-opts plugin-config])
@@ -46,6 +47,7 @@
       :otherwise            (viz/visualize {:graph graph-data
                                             :tree  tree-data
                                             :node-labels   node-labels
+                                            :node-shapes   node-shapes
                                             :output-file   output-file
                                             :hide-missing? hide-missing?
                                             :known-missing (set seed-keys)
