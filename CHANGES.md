@@ -5,8 +5,13 @@
 
 ## 0.3.0 / 2016-September-??
 
-* Image output: `["-o" "--output-file FILE" "File to output rendered image to"]`
-* Node labels may be specified in the payload under the key `:node-labels`
+* Payload
+  * BREAKING CHANGE: Graph data to come under the key `:graph-data` in a payload map
+  * BREAKING CHANGE: Tree data to come under the key `:tree-data` in a payload map
+  * BREAKING CHANGE: Seed keys to come under the key `:seed-keys` in a payload map
+  * Node labels may be specified in the payload under the key `:node-labels`
+* CLI support
+  * Image output: `["-o" "--output-file FILE" "Filename to output image to"]`
 
 
 ## 0.2.1 / 2016-September-06

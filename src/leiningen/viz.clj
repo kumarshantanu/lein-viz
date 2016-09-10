@@ -28,24 +28,25 @@
          :as cli-opts} (cli/parse-opts args)
         plugin-config  (proj/plugin-config project selector)
         payload-source (some :source [cli-opts plugin-config])
-        {:keys [graph
-                tree
+        {:keys [graph-data
+                tree-data
                 node-labels
-                seed]
+                seed-keys]
          :as payload}  (proj/resolve-payload project payload-source)
         output-file    (some :output-file  [cli-opts plugin-config])
         hide-missing?  (some :hide-missing [cli-opts plugin-config])
         zoom-node      (some :zoom-node    [cli-opts plugin-config])]
     (cond
-      (not (or graph tree)) (main/abort (format payload-err   (pr-str (vec (keys payload)))))
-      (and graph
-        (not (map? graph))) (main/abort (format graph-map-err (pr-str graph)))
-      (and tree
-        (not (coll? tree))) (main/abort (format tree-coll-err (pr-str tree)))
-      :otherwise            (viz/visualize {:graph graph
-                                            :tree  tree
+      (not (or graph-data
+             tree-data))         (main/abort (format payload-err   (pr-str (vec (keys payload)))))
+      (and graph-data
+        (not (map? graph-data))) (main/abort (format graph-map-err (pr-str graph-data)))
+      (and tree-data
+        (not (coll? tree-data))) (main/abort (format tree-coll-err (pr-str tree-data)))
+      :otherwise            (viz/visualize {:graph graph-data
+                                            :tree  tree-data
                                             :node-labels   node-labels
                                             :output-file   output-file
                                             :hide-missing? hide-missing?
-                                            :known-missing (set seed)
+                                            :known-missing (set seed-keys)
                                             :zoom-node zoom-node}))))

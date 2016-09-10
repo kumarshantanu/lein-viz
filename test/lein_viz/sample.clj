@@ -12,18 +12,18 @@
 
 (defn make-graph
   []
-  {:graph {:service [:db :mailer]
-           :db {:connection-pool :datasource}
-           :datasource [:db-host
-                        :db-port
-                        :database
-                        :username
-                        :password]
-           :mailer [:smtp-host :smtp-port]}
+  {:graph-data  {:service [:db :mailer]
+                 :db {:connection-pool :datasource}
+                 :datasource [:db-host
+                              :db-port
+                              :database
+                              :username
+                              :password]
+                 :mailer [:smtp-host :smtp-port]}
    :node-labels {:datasource :mysql-data-source}
-   :seed [:db-host :db-port :username :password]})
+   :seed-keys   [:db-host :db-port :username :password]})
 
 
 (defn make-tree
   []
-  {:tree [:foo [10 20] :bar [30 40] :baz [50]]})
+  {:tree-data [:foo [10 20] :bar [30 40] :baz [50]]})
