@@ -43,9 +43,10 @@
          :as payload}  (proj/resolve-payload project payload-source)
         no-node-labels (some :no-node-labels [cli-opts plugin-config])
         no-node-shapes (some :no-node-shapes [cli-opts plugin-config])
-        output-file    (some :output-file  [cli-opts plugin-config])
-        hide-missing?  (some :hide-missing [cli-opts plugin-config])
-        zoom-node      (some :zoom-node    [cli-opts plugin-config])]
+        no-seed-keys   (some :no-seed-keys   [cli-opts plugin-config])
+        output-file    (some :output-file    [cli-opts plugin-config])
+        hide-missing?  (some :hide-missing   [cli-opts plugin-config])
+        zoom-node      (some :zoom-node      [cli-opts plugin-config])]
     (cond
       (not (or graph-data
              tree-data))         (main/abort (format payload-err   (pr-str (vec (keys payload)))))
@@ -59,5 +60,5 @@
                                             :node-shapes   (when-not no-node-shapes node-shapes)
                                             :output-file   output-file
                                             :hide-missing? hide-missing?
-                                            :known-missing (set seed-keys)
+                                            :known-missing (set (when-not no-seed-keys seed-keys))
                                             :zoom-node zoom-node}))))

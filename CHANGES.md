@@ -13,8 +13,9 @@
   * Node shapes may be specified in the payload under the key `:node-shapes`
 * CLI support
   * Image output: `["-o" "--output-file FILE" "Filename to output image to"]`
-  * Ignore node label override `[nil "--no-node-labels" "Ignore node label override via :node-labels"]`
-  * Ignore node shape override `[nil "--no-node-shapes" "Ignore node shape override via :node-shapes"]`
+  * Ignore node label override `[nil "--no-node-labels" "Ignore node label override via :node-labels in payload"]`
+  * Ignore node shape override `[nil "--no-node-shapes" "Ignore node shape override via :node-shapes in payload"]`
+  * Ignore seed keys override `[nil "--no-seed-keys" "Ignore seed keys override via :seed-keys in payload"]`
 
 
 ## 0.2.1 / 2016-September-06

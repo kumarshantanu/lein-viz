@@ -24,6 +24,7 @@
    ["-z" "--zoom-node NODE"    "Sub-graph root node (EDN) to zoom into"  :parse-fn edn/read-string]
    [nil  "--no-node-labels"    "Ignore node label override via :node-labels in payload"]
    [nil  "--no-node-shapes"    "Ignore node shape override via :node-shapes in payload"]
+   [nil  "--no-seed-keys"      "Ignore seed keys specified via :seed-keys in payload"]
    ["-u" "--usage" "Show usage text"]])
 
 
