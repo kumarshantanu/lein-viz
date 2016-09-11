@@ -22,6 +22,8 @@
    ["-o" "--output-file FILE"  "Filename to output image to"]
    ["-s" "--source SOURCE"     "Fully qualified var name (arity-0 fn)"   :parse-fn edn/read-string]
    ["-z" "--zoom-node NODE"    "Sub-graph root node (EDN) to zoom into"  :parse-fn edn/read-string]
+   [nil  "--no-node-labels"    "Ignore node label override via :node-labels in payload"]
+   [nil  "--no-node-shapes"    "Ignore node shape override via :node-shapes in payload"]
    ["-u" "--usage" "Show usage text"]])
 
 

@@ -41,6 +41,8 @@
                 node-shapes
                 seed-keys]
          :as payload}  (proj/resolve-payload project payload-source)
+        no-node-labels (some :no-node-labels [cli-opts plugin-config])
+        no-node-shapes (some :no-node-shapes [cli-opts plugin-config])
         output-file    (some :output-file  [cli-opts plugin-config])
         hide-missing?  (some :hide-missing [cli-opts plugin-config])
         zoom-node      (some :zoom-node    [cli-opts plugin-config])]
@@ -53,8 +55,8 @@
         (not (coll? tree-data))) (main/abort (format tree-coll-err (pr-str tree-data)))
       :otherwise            (viz/visualize {:graph graph-data
                                             :tree  tree-data
-                                            :node-labels   node-labels
-                                            :node-shapes   node-shapes
+                                            :node-labels   (when-not no-node-labels node-labels)
+                                            :node-shapes   (when-not no-node-shapes node-shapes)
                                             :output-file   output-file
                                             :hide-missing? hide-missing?
                                             :known-missing (set seed-keys)
