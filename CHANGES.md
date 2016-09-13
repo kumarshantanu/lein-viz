@@ -3,7 +3,7 @@
 ## TODO
 
 
-## 0.3.0 / 2016-September-??
+## 0.3.0 / 2016-September-13
 
 * Payload
   * BREAKING CHANGE: Graph data to come under the key `:graph-data` in a payload map
