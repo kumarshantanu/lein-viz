@@ -2,6 +2,9 @@
 
 ## TODO
 
+* [TODO] Add support for charts (via `:chart-data` and cljfreechart library)
+  * Charting providers: JFreeChart, XChart
+
 
 ## 0.3.0 / 2016-September-13
 
