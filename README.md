@@ -5,7 +5,7 @@ A Leiningen plugin to visualize graph and tree data.
 
 ## Usage
 
-Leiningen coordinates: `[lein-viz 0.3.0]`
+Leiningen coordinates: `[lein-viz "0.3.0"]`
 
 You need to have [Graphviz](http://www.graphviz.org/) installed to use this plugin.
 
